@@ -14,8 +14,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
-    \Settings\ConfigProvider::class,
-    \IMServices\ConfigProvider::class,
+   
     \DoctrineModule\ConfigProvider::class,
     \Laminas\Cache\ConfigProvider::class,
     \Laminas\Form\ConfigProvider::class,
@@ -25,23 +24,12 @@ $aggregator = new ConfigAggregator([
     \Laminas\Paginator\ConfigProvider::class,
     \Laminas\Validator\ConfigProvider::class,
     \Laminas\Hydrator\ConfigProvider::class,
-    \Transaction\ConfigProvider::class,
-    \Claims\ConfigProvider::class,
-    \Wallet\ConfigProvider::class,
-    \Documents\ConfigProvider::class,
-    \Proparty\ConfigProvider::class,
-    \Admin\ConfigProvider::class,
-    \General\ConfigProvider::class,
+   
     \Laminas\I18n\ConfigProvider::class,
     \Mezzio\Csrf\ConfigProvider::class,
     \Mezzio\Flash\ConfigProvider::class,
     \Mezzio\Session\ConfigProvider::class,
     \System\ConfigProvider::class,
-    \Notification\ConfigProvider::class,
-    \Policy\ConfigProvider::class,
-    \Jobs\ConfigProvider::class,
-    \Customer\ConfigProvider::class,
-    \Invoice\ConfigProvider::class,
     \Authentication\ConfigProvider::class,
     \Mezzio\Authorization\Rbac\ConfigProvider::class,
     \Mezzio\Authorization\ConfigProvider::class,
