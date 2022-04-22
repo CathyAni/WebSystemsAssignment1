@@ -47,7 +47,7 @@
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/annotations": "^1.13",
         "doctrine/doctrine-module": "^5.1",
-        "doctrine/orm": "2.11.3",
+        "doctrine/orm": "2.11.0",
         "laminas/laminas-component-installer": "^2.6",
         "laminas/laminas-config-aggregator": "^1.6",
         "laminas/laminas-crypt": "^3.8",

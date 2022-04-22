@@ -29,7 +29,6 @@ $aggregator = new ConfigAggregator([
     \Mezzio\Csrf\ConfigProvider::class,
     \Mezzio\Flash\ConfigProvider::class,
     \Mezzio\Session\ConfigProvider::class,
-    \System\ConfigProvider::class,
     \Authentication\ConfigProvider::class,
     \Mezzio\Authorization\Rbac\ConfigProvider::class,
     \Mezzio\Authorization\ConfigProvider::class,

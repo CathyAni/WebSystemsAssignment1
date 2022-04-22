@@ -27,7 +27,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
-            // "doctrine" => $this->getDoctrineEntities(),
+            "doctrine" => $this->getDoctrineEntities(),
 
         ];
     }
