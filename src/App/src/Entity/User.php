@@ -1,6 +1,6 @@
 <?php
 
-namespace User\Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Laminas\Form\Annotation;
@@ -113,7 +113,7 @@ class User{
 
     /**
      *
-     * @var User\Entity\Language @ORM\ManyToOne(targetEntity="Language")
+     * @var App\Entity\Language @ORM\ManyToOne(targetEntity="Language")
      *      @ORM\JoinColumn(name="language_id", referencedColumnName="id", nullable=true)
      *      @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
      *      @Annotation\Filter({"name":"StripTags"})
@@ -140,7 +140,7 @@ class User{
      *      @Annotation\Options({
      *      "required":"true",
      *      "empty_option": "User State",
-     *      "target_class":"User\Entity\State",
+     *      "target_class":"App\Entity\State",
      *      "property": "state"
      *      })
      */
