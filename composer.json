@@ -93,7 +93,8 @@
             "Claims\\": "src/Claims/src/",
             "Transaction\\": "src/Transaction/src/",
             "IMServices\\": "src/IMServices/src/",
-            "Settings\\": "src/Settings/src/"
+            "Settings\\": "src/Settings/src/",
+            "Women\\": "src/Women/src/"
         }
     },
     "autoload-dev": {
