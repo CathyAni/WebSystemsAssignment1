@@ -1,0 +1,48 @@
+<!-- This is where we will show event form s -->
+<?php ?>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+<div id="sub1">
+    <!-- <form action="/" method="POST"> -->
+        <label> Event Name </label>
+        <input type="text" ref="event_name" required name="event_name"> <br><br>
+
+
+        <label> Event Description</label>
+        <textarea required ref="event_desc" name="event_desc" cols=30 rows="10"></textarea><br><br>
+        <!-- <input type="textarea" required name="event_desc"> <br><br> -->
+
+        <button @click="submitEvent()" type="submit">Create Event</button>
+
+    <!-- </form> -->
+
+</div>
+<script>
+    let formsubmit = new Vue({
+        el: "#sub1",
+        data() {
+            return {
+                key: ""
+            }
+        },
+
+        methods: {
+            submitEvent() {
+                let formData = new FormData();
+                // alert(this.$refs.event_name.value);
+                formData.append("event_name", this.$refs.event_name.value);
+                formData.append("event_desc", this.$refs.event_desc.value);
+                axios.post("/women/create-event", formData).then(res => {
+                    if (res.status == 201) {
+                        // do somethins
+                        alert("Submitted form")
+                    }
+                }).catch(err => {
+                    // do another something
+                    alert("Error");
+                })
+            }
+        },
+    });
+</script>

@@ -6,6 +6,8 @@ namespace Women;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
+use Women\Handler\CreateEventHandler;
+use Women\Handler\CreateEventHandlerFactory;
 
 /**
  * The configuration provider for the Women module
@@ -38,6 +40,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                CreateEventHandler::class=>CreateEventHandlerFactory::class,
             ],
         ];
     }
