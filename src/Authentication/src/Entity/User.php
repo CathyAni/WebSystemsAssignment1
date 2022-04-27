@@ -13,40 +13,41 @@ use Mezzio\Authentication\UserInterface;
  * @ORM\Entity
  * @ORM\Table(name="user", indexes={@ORM\Index(name="IDX_6A6A46001334567", columns={"username"}), @ORM\Index(name="IDX_12D95C3950F7C5BF", columns={"email"})})
  */
-class User implements UserInterface {
+class User implements UserInterface
+{
 
-     /**
+    /**
      * @var integer 
      * @ORM\Column(name="id", type="integer")
      *      @ORM\Id
      *      @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(nullable=false, unique=true)
      * @var string
      */
-    private string $uid;
+    private ?string $uid = null;
 
     /**
      * @var string
      * @ORM\Column(unique=true, nullable=false, type="string")
      */
-    private string $username;
+    private ?string $username = null;
 
 
     /**
      * @ORM\Column(unique=true, nullable=false, type="string")
      * @var string
      */
-    private string $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(nullable=false)
      * @var string
      */
-    private string $password;
+    private  $password ;
 
     /**
      * @var bool
@@ -58,20 +59,20 @@ class User implements UserInterface {
      * @var \Datetime
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private DateTime $createdOn;
+    private $createdOn;
 
     /**
      * @var \Datetime
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private DateTime $updatedOn;
+    private $updatedOn;
 
 
     /**
      * @var string
      * @ORM\Column(length=64, nullable=false)
      */
-    private string $activationCode;
+    private  $activationCode;
 
 
     // /**
@@ -89,31 +90,31 @@ class User implements UserInterface {
      * )
      * @var ArrayCollection $roles
      */
-    protected iterable $roles = [];
+    protected $roles = [];
 
     /**
      * @var UserState
      * @ORM\ManyToOne(targetEntity="UserState")
      */
-    private UserState $status;
+    private $status;
 
     /**
      * @var string
      * @ORM\Column(type="boolean", options={"default" : 0})
      */
-    private bool $isActive;
+    private  $isActive;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    private string $googleId;
+    private  $googleId;
 
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    private string $facebookId;
+    private  $facebookId;
 
     /**
      * @var AuthType
@@ -121,9 +122,10 @@ class User implements UserInterface {
      */
     private $authType;
 
-    
 
-    public function __contruct(){
+
+    public function __contruct()
+    {
         $this->roles = new ArrayCollection();
     }
 
@@ -132,7 +134,7 @@ class User implements UserInterface {
      * Get the value of id
      *
      * @return  int
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -144,7 +146,7 @@ class User implements UserInterface {
      * @param  int  $id
      *
      * @return  self
-     */ 
+     */
     public function setId(int $id)
     {
         $this->id = $id;
@@ -156,7 +158,7 @@ class User implements UserInterface {
      * Get the value of username
      *
      * @return  string
-     */ 
+     */
     public function getUsername()
     {
         return $this->username;
@@ -168,7 +170,7 @@ class User implements UserInterface {
      * @param  string  $username
      *
      * @return  self
-     */ 
+     */
     public function setUsername(string $username)
     {
         $this->username = $username;
@@ -180,7 +182,7 @@ class User implements UserInterface {
      * Get the value of email
      *
      * @return  string
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -192,7 +194,7 @@ class User implements UserInterface {
      * @param  string  $email
      *
      * @return  self
-     */ 
+     */
     public function setEmail(string $email)
     {
         $this->email = $email;
@@ -204,7 +206,7 @@ class User implements UserInterface {
      * Get the value of password
      *
      * @return  string
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -216,7 +218,7 @@ class User implements UserInterface {
      * @param  string  $password
      *
      * @return  self
-     */ 
+     */
     public function setPassword(string $password)
     {
         $this->password = $password;
@@ -228,7 +230,7 @@ class User implements UserInterface {
      * Get the value of createdOn
      *
      * @return  \Datetime
-     */ 
+     */
     public function getCreatedOn()
     {
         return $this->createdOn;
@@ -240,11 +242,11 @@ class User implements UserInterface {
      * @param  \Datetime  $createdOn
      *
      * @return  self
-     */ 
+     */
     public function setCreatedOn(\Datetime $createdOn)
     {
         $this->createdOn = $createdOn;
-
+        $this->updatedOn = $createdOn;
         return $this;
     }
 
@@ -252,7 +254,7 @@ class User implements UserInterface {
      * Get the value of updatedOn
      *
      * @return  \Datetime
-     */ 
+     */
     public function getUpdatedOn()
     {
         return $this->updatedOn;
@@ -264,7 +266,7 @@ class User implements UserInterface {
      * @param  \Datetime  $updatedOn
      *
      * @return  self
-     */ 
+     */
     public function setUpdatedOn(\Datetime $updatedOn)
     {
         $this->updatedOn = $updatedOn;
@@ -276,7 +278,7 @@ class User implements UserInterface {
      * Get the value of role
      *
      * @return  Role
-     */ 
+     */
     public function getRole()
     {
         return $this->role;
@@ -288,7 +290,7 @@ class User implements UserInterface {
      * @param  Role  $role
      *
      * @return  self
-     */ 
+     */
     public function setRole(Role $role)
     {
         $this->role = $role;
@@ -300,7 +302,7 @@ class User implements UserInterface {
      * Get the value of status
      *
      * @return  UserState
-     */ 
+     */
     public function getStatus()
     {
         return $this->status;
@@ -312,7 +314,7 @@ class User implements UserInterface {
      * @param  UserState  $status
      *
      * @return  self
-     */ 
+     */
     public function setStatus(UserState $status)
     {
         $this->status = $status;
@@ -324,7 +326,7 @@ class User implements UserInterface {
      * Get the value of activationCode
      *
      * @return  string
-     */ 
+     */
     public function getActivationCode()
     {
         return $this->activationCode;
@@ -336,7 +338,7 @@ class User implements UserInterface {
      * @param  string  $activationCode
      *
      * @return  self
-     */ 
+     */
     public function setActivationCode(string $activationCode)
     {
         $this->activationCode = $activationCode;
@@ -349,7 +351,7 @@ class User implements UserInterface {
         return $this->username;
     }
 
-    
+
 
     public function getDetails(): array
     {
@@ -361,11 +363,11 @@ class User implements UserInterface {
         return $default;
     }
 
-    
+
 
     /**
      * Get the value of isActive
-     */ 
+     */
     public function getIsActive()
     {
         return $this->isActive;
@@ -375,7 +377,7 @@ class User implements UserInterface {
      * Set the value of isActive
      *
      * @return  self
-     */ 
+     */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
@@ -385,7 +387,7 @@ class User implements UserInterface {
 
     /**
      * Get the value of googleId
-     */ 
+     */
     public function getGoogleId()
     {
         return $this->googleId;
@@ -395,7 +397,7 @@ class User implements UserInterface {
      * Set the value of googleId
      *
      * @return  self
-     */ 
+     */
     public function setGoogleId($googleId)
     {
         $this->googleId = $googleId;
@@ -407,7 +409,7 @@ class User implements UserInterface {
      * Get the value of facebookId
      *
      * @return  string
-     */ 
+     */
     public function getFacebookId()
     {
         return $this->facebookId;
@@ -419,7 +421,7 @@ class User implements UserInterface {
      * @param  string  $facebookId
      *
      * @return  self
-     */ 
+     */
     public function setFacebookId(string $facebookId)
     {
         $this->facebookId = $facebookId;
@@ -431,7 +433,7 @@ class User implements UserInterface {
      * Get the value of emailConfirmed
      *
      * @return  bool
-     */ 
+     */
     public function getEmailConfirmed()
     {
         return $this->emailConfirmed;
@@ -443,7 +445,7 @@ class User implements UserInterface {
      * @param  bool  $emailConfirmed
      *
      * @return  self
-     */ 
+     */
     public function setEmailConfirmed(bool $emailConfirmed)
     {
         $this->emailConfirmed = $emailConfirmed;
@@ -455,7 +457,7 @@ class User implements UserInterface {
      * Get the value of authType
      *
      * @return  AuthType
-     */ 
+     */
     public function getAuthType()
     {
         return $this->authType;
@@ -467,7 +469,7 @@ class User implements UserInterface {
      * @param  AuthType  $authType
      *
      * @return  self
-     */ 
+     */
     public function setAuthType(AuthType $authType)
     {
         $this->authType = $authType;
@@ -479,8 +481,8 @@ class User implements UserInterface {
      * Get $roles
      *
      * @return  ArrayCollection
-     */ 
-    public function getRoles():iterable
+     */
+    public function getRoles(): iterable
     {
         return $this->roles;
     }
@@ -491,10 +493,55 @@ class User implements UserInterface {
      * @param  ArrayCollection  $roles  $roles
      *
      * @return  self
-     */ 
+     */
     public function setRoles(ArrayCollection $roles)
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @param Role $role
+     * 
+     */
+    public function addRole(Role $role)
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
+        return $this;
+    }
+
+
+    public function removeRole(Role $role)
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+        }
+        return $this;
+    }
+
+    /**
+     * Get the value of uid
+     *
+     * @return  string
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * Set the value of uid
+     *
+     * @param  string  $uid
+     *
+     * @return  self
+     */
+    public function setUid(string $uid)
+    {
+        $this->uid = $uid;
 
         return $this;
     }

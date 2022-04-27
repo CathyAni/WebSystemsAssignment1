@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table("auth_type")
  * This could either be
- * email
+ * default
  * google
  * facebook
  */

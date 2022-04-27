@@ -4,9 +4,22 @@ declare(strict_types=1);
 
 namespace Authentication;
 
-
+use Authentication\Adapter\AuthenticationAdapter;
+use Authentication\Adapter\AuthenticationAdapterFactory;
+use Authentication\Form\Fieldset\UserFieldset;
+use Authentication\Form\Fieldset\UserFieldsetFactory;
+use Authentication\Handler\LoginHandler;
+use Authentication\Handler\LoginHandlerFactory;
+use Authentication\Middleware\AuthenticationMiddleware;
+use Authentication\Middleware\AuthenticationMiddlewareFactory;
+use Authentication\Middleware\UserRedirectMiddleware;
+use Authentication\Middleware\UserRedirectMiddlewareFactory;
+use Authentication\Service\AuthenticationInterface;
+use Authentication\Service\UserService;
+use Authentication\Service\UserServiceFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use Mezzio\Application;
 
 /**
@@ -28,6 +41,7 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
             "doctrine" => $this->getDoctrineEntities(),
+            "form_elements"=>$this->getFormElements(),
         ];
     }
 
@@ -42,8 +56,21 @@ class ConfigProvider
                     RouteDelegator::class
                 ]
             ],
-            'invokables' => [],
-            'factories'  => [],
+            'invokables' => [
+                AuthenticationInterface::class=>AuthenticationInterface::class,
+            ],
+            'factories'  => [
+                AuthenticationMiddleware::class=>AuthenticationMiddlewareFactory::class,
+                AuthenticationAdapter::class=>AuthenticationAdapterFactory::class,
+
+                UserRedirectMiddleware::class=>UserRedirectMiddlewareFactory::class,
+
+                //Services
+                UserService::class=>UserServiceFactory::class,
+
+                //handlers 
+                LoginHandler::class=>LoginHandlerFactory::class,
+            ],
            
 
         ];
@@ -77,7 +104,17 @@ class ConfigProvider
             'paths' => [
                 'authentication'    => [__DIR__ . '/../templates/'],
                 'login_layout' => [__DIR__ . '/../templates/layout'],
+                "authentication_partial"=>[__DIR__ . '/../templates/partial'],
+                "authentication_email"=>[__DIR__ . '/../templates/email'],
             ],
+        ];
+    }
+
+    public function getFormElements(){
+        return [
+            "factories"=>[
+                UserFieldset::class=>UserFieldsetFactory::class
+            ]
         ];
     }
 }

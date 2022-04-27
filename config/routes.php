@@ -6,7 +6,11 @@ use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
 use Women\Handler\CreateEventHandler;
+use Women\Handler\CreateStoryHandler;
+use Women\Handler\ProfileHandler;
 use Women\Handler\ShowEventFormHandler;
+use Women\Handler\ShowProfileFormHandler;
+use Women\Handler\ShowStoryFormHandler;
 
 /**
  * FastRoute route configuration
@@ -45,4 +49,10 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
 
     $app->route("/women/event-form", [ShowEventFormHandler::class], ["GET"], "women.show.event.form");
     $app->route("/women/create-event", [CreateEventHandler::class], ["POST"], "women.create.event");
+
+    $app->route("/women/create-profile", [ProfileHandler::class], ["POST"]);
+    $app->route("/women/show-profile-form", [ShowProfileFormHandler::class], ["GET"]);
+
+    $app->route("/women/create-story", [CreateStoryHandler::class], ["POST"]);
+    $app->route("/women/show-story-form", [ShowStoryFormHandler::class], ["GET"]);
 };

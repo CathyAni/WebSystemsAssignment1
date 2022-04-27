@@ -8,6 +8,14 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
 use Women\Handler\CreateEventHandler;
 use Women\Handler\CreateEventHandlerFactory;
+use Women\Handler\CreateStoryHandler;
+use Women\Handler\CreateStoryHandlerFactory;
+use Women\Handler\ProfileHandler;
+use Women\Handler\ProfileHandlerFactory;
+use Women\Handler\ShowProfileFormHandler;
+use Women\Handler\ShowProfileFormHandlerFactory;
+use Women\Handler\ShowStoryFormHandler;
+use Women\Handler\ShowStoryFormHandlerFactory;
 
 /**
  * The configuration provider for the Women module
@@ -41,6 +49,11 @@ class ConfigProvider
             ],
             'factories'  => [
                 CreateEventHandler::class=>CreateEventHandlerFactory::class,
+                ShowProfileFormHandler::class=>ShowProfileFormHandlerFactory::class,
+                ProfileHandler::class=>ProfileHandlerFactory::class,
+
+                CreateStoryHandler::class =>CreateStoryHandlerFactory::class,
+                ShowStoryFormHandler::class=>ShowStoryFormHandlerFactory::class,
             ],
         ];
     }

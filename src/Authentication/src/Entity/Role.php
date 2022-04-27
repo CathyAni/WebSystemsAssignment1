@@ -23,7 +23,7 @@ class Role implements RoleInterface
 
     /**
      * @var string
-     * @ORM\Column(nullable=false)
+     * @ORM\Column(nullable=false, length="50")
      */
     private string $role;
 

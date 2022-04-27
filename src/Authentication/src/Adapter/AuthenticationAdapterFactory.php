@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Authentication\Adapter;
 
 use Doctrine\ORM\EntityManager;
+use Mezzio\Authentication\UserInterface;
 use Psr\Container\ContainerInterface;
 
 class  AuthenticationAdapterFactory

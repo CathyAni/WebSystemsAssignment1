@@ -1,1 +1,35 @@
-Template for Authentication\Handler\CreateUserHandler
+
+<?php 
+// echo $token;
+$form->prepare(); ?>
+<div class="register-box">
+  <div class="register-logo">
+    <a href=""><b>AIB</b>LTE</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register a new membership</p>
+
+     
+     <?php echo $this->form()->openTag($form); ?>
+     <?php echo $this->partial('authentication_partial::user-form', array('form'=>$form));?>
+      <?php echo $this->form()->closeTag() ?>
+
+      <div class="social-auth-links text-center">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i>
+          Sign up using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i>
+          Sign up using Google+
+        </a>
+      </div>
+
+      <a href="<?= $this->url("authentication.login")?>" class="text-center">I already have a membership</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>

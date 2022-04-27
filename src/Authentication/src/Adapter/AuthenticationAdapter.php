@@ -108,8 +108,8 @@ class AuthenticationAdapter implements UserRepositoryInterface{
             ->leftJoin("s.roles", "r")
             ->leftJoin("s.status", "st")
             ->leftJoin("s.authType", "at")
-            ->where("c.username = :username")
-            ->orWhere("c.email = :email")
+            ->where("s.username = :username")
+            ->orWhere("s.email = :email")
             ->setParameters([
                 "username" => $credential,
                 "email"=>$credential,

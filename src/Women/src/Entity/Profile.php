@@ -31,10 +31,10 @@ class Profile{
      */
     private $dob;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Women\Entity\Occupation")
-     */
-    private $occupation;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity="Women\Entity\Occupation")
+    //  */
+    // private $occupation;
 
     /**
      * @var \Datetime
@@ -48,6 +48,11 @@ class Profile{
      * @var \Datetime
      */
     private $updatedAt;
+
+   /**
+     * @ORM\ManyToOne(targetEntity="Authentication\Entity\User")
+     */
+    private $owner;
 
     /**
      * Get the value of id
@@ -149,7 +154,7 @@ class Profile{
     public function setCreatedAt(\Datetime $createdAt)
     {
         $this->createdAt = $createdAt;
-
+        $this->updatedAt = $createdAt;
         return $this;
     }
 

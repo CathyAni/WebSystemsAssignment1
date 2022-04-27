@@ -13,9 +13,11 @@ use Doctrine\ORM\EntityManager;
 use Women\Entity\Profile;
 use Mezzio\Template\TemplateRendererInterface;
 use Authentication\Entity\User;
+use DateTime;
+
 class ProfileHandler implements RequestHandlerInterface
 {
-        /**
+    /**
      * @var EntityManager
      */
     private $entityManager;
@@ -25,37 +27,37 @@ class ProfileHandler implements RequestHandlerInterface
      */
     private $renderer;
 
-    public function __construct(TemplateRendererInterface $renderer)
+    public function __construct(TemplateRendererInterface $renderer, EntityManager $em)
     {
         $this->renderer = $renderer;
-        $this->entityManager = '$em';
+        $this->entityManager = $em;
     }
 
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $em = $this->entityManager;
         try {
             if ("POST" === $request->getMethod()) {
                 $post = $request->getParsedBody();
                 $profileEntity = new Profile();
-                $dob = strip_tags($post["profile_dob"]);
+                // $dob = strip_tags($post["profile_dob"]);
                 $name = strip_tags($post["profile_name"]);
                 $profileEntity
-                ->setProfileDob($dob)
-                ->setCreatedAt(new DateTime("now"))
-                ->setProfileName($name)
+                    // ->setDob(new \DateTime("now"))
+                    ->setCreatedAt(new DateTime("now"))
+                    ->setName($name);
 
-            $em->persist($profileEntity);
-            $em->flush();
+                $em->persist($profileEntity);
+                $em->flush();
+            }
+        } catch (\Throwable $th) {
+            return new JsonResponse([
+                "error" => $th->getMessage()
+            ]);
         }
-    } catch (\Throwable $th) {
-        return new JsonResponse([
-            "error" => $th->getMessage()
-        ]);
-    }
 
-    return new JsonResponse([
-        "status" => "success"
+        return new JsonResponse([
+            "status" => "success"
         ], 201);
     }
 }

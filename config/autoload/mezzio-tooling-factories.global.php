@@ -29,6 +29,8 @@ return [
             Women\Handler\ReadStoryHandler::class => Women\Handler\ReadStoryHandlerFactory::class,
             Women\Handler\RegisterForEventHandler::class => Women\Handler\RegisterForEventHandlerFactory::class,
             Women\Handler\ShowEventFormHandler::class => Women\Handler\ShowEventFormHandlerFactory::class,
+            Women\Handler\ShowProfileFormHandler::class => Women\Handler\ShowProfileFormHandlerFactory::class,
+            Women\Handler\ShowStoryFormHandler::class => Women\Handler\ShowStoryFormHandlerFactory::class,
             Women\Handler\StoryHandler::class => Women\Handler\StoryHandlerFactory::class,
             Women\Handler\ViewEventHandler::class => Women\Handler\ViewEventHandlerFactory::class,
         ],
