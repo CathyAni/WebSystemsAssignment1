@@ -8,15 +8,28 @@ echo $this->headmeta("Login Page ");
       <?= $this->escapeHtml($error) ?>
     </div>
   <?php endif ?>
+  <?php if ($flashes = $this->flash()) : ?>
+      <ul>
+        <?php foreach ($flashes as $key => $message) : ?>
+          <div class="alert alert-<?= $key ?> alert-dismissable fade show" role="alert">
+            <?php echo $message; ?>
+            <button class="close" type="button" data-dismiss="alert" aria-label=""></button>
+          </div>
+
+        <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
+
   <div class="login-logo">
     <a href=""><b> Logo Here</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
+    
     <div class="card-body login-card-body">
       <p class="login-box-msg">Welcome to </p>
 
-      <form autocomplete="off"  action="<?= $this->url("authentication.login") ?>" method="post">
+      <form autocomplete="off" action="<?= $this->url("authentication.login") ?>" method="post">
         <div class="input-group mb-3">
           <input type="text" class="form-control" required name="username" id="username" placeholder="Email or Phone Number">
           <div class="input-group-append">
@@ -63,10 +76,10 @@ echo $this->headmeta("Login Page ");
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="<?= $this->url("authentication.forgot.password")?>">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="<?= $this->url("authentication.create.user")?>" class="text-center">Register a new membership</a>
+        <a href="<?= $this->url("authentication.create.user") ?>" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->

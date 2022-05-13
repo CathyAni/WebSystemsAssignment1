@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Authentication\Service;
 
+use Authentication\Entity\AuthType;
 use Authentication\Entity\Role;
 use Authentication\Entity\User;
 use Authentication\Entity\UserState;
@@ -18,7 +19,7 @@ class UserService
 
     const USER_ROLE_GUEST = 1;
 
-    const USER_ROLE_CUSTOMER = 10;
+    const USER_ROLE_REGISTERED = 10;
 
     const USER_ROLE_ADMIN = 30;
 
@@ -27,7 +28,13 @@ class UserService
 
     const USER_STATE_DISABLED = 2;
 
-    // const USER
+    const USER_AUTHTYPE_DEFAULT = 10;
+
+    const USER_AUTHTYPE_GOOGLE = 20;
+
+    const USER_AUTHTYPE_FACEBOOK = 30;
+
+
 
 
 
@@ -37,9 +44,9 @@ class UserService
      */
     private $entityManager;
 
-   /**
-    * @var MailService 
-    */
+    /**
+     * @var MailService 
+     */
     private $mailService;
 
     /**
@@ -78,42 +85,50 @@ class UserService
         return $bcrypt->create($password);
     }
 
-    private static function generatetoken(){
+    private static function generatetoken()
+    {
         return bin2hex(openssl_random_pseudo_bytes(16));
     }
 
 
-    public function createDefaultUserasCustomer($data)
+    public function createDefaultUserasCustomer(User $userEntity)
     {
+        //    $data = (array)$data;
+
         $em = $this->entityManager;
-        $userEntity = new User();
+
         $activationToken = self::generatetoken();
+
+
         $userEntity
-            ->setEmail($data["email"])
-            ->setPassword(self::encryptPassword($data["password"]))
-            ->setUsername($data["username"])
+            // ->setEmail($data["email"])
+            ->setPassword(self::encryptPassword($userEntity->getPassword()))
+            // ->setUsername($data["username"])
             ->setActivationCode($activationToken)
+            // ->setAuthType($em->find(AuthType::class, self::USER_AUTHTYPE_DEFAULT))
             ->setEmailConfirmed(false)
+            ->setUid(bin2hex(openssl_random_pseudo_bytes(10)))
             ->setStatus($em->find(UserState::class, self::USER_STATE_ENABLED))
             ->setCreatedOn(new \Datetime("now"))
-            ->setIsActive(false)
-            ;
-            $userEntity->addRole($em->find(Role::class, self::USER_ROLE_CUSTOMER));
+            ->setIsActive(false);
 
-            $em->persist($userEntity);
-            $em->flush();
+        $userEntity->addRole($em->find(Role::class, self::USER_ROLE_REGISTERED));
+        $activation_link = $this->generalService->absoluteUrl("authentication.confirm.email", ["code" => $activationToken]);
 
-            $activation_link = $this->generalService->absoluteUrl("authentication.confirm.email", ["code"=>$activationToken]);
+        $mailData["to"] = array($userEntity->getEmail());
+        $mailData["subject"] = "Women Inspire :: Confirm Email";
+        $mailData["params"] = [
+            "activation_link" => $activation_link
 
-            $mailData["to"] = $data["email"];
-            $mailData["subject"] = "AIB :: Confirm Email";
-            $mailData["params"] = [
-                "activation_link"=>$activation_link
-                
-            ];
-            $this->mailService->sendMails($mailData, "authentication_email::confirm_email");
-            
-            // send email notification 
+        ];
+
+        $em->persist($userEntity);
+        $em->flush();
+
+
+        $this->mailService->sendMails($mailData, "authentication_email::confirm_email");
+
+        // send email notification 
     }
 
     /**
@@ -132,7 +147,7 @@ class UserService
      * Set the value of mailService
      *
      * @return  self
-     */ 
+     */
     public function setMailService($mailService)
     {
         $this->mailService = $mailService;
@@ -146,7 +161,7 @@ class UserService
      * @param  UrlHelper  $urlHelper
      *
      * @return  self
-     */ 
+     */
     public function setUrlHelper(UrlHelper $urlHelper)
     {
         $this->urlHelper = $urlHelper;
@@ -160,7 +175,7 @@ class UserService
      * @param  GeneralService  $generalService
      *
      * @return  self
-     */ 
+     */
     public function setGeneralService(GeneralService $generalService)
     {
         $this->generalService = $generalService;

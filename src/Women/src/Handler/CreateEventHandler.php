@@ -47,7 +47,8 @@ class CreateEventHandler implements RequestHandlerInterface
                 $eventEntity
                     ->setEventDecsription($desc)
                     ->setCreatedAt(new DateTime("now"))
-                    ->setEventName($name);
+                    ->setEventName($name)->set;
+                    
                 // ->setCreator($em->find(User::class, $id))
                 // ->setStartDate($startdate);
 

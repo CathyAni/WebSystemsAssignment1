@@ -15,6 +15,12 @@ $cacheConfig = [
 
 $aggregator = new ConfigAggregator([
    
+    \Training\ConfigProvider::class,
+    \Mezzio\Authentication\Session\ConfigProvider::class,
+    \Mezzio\Session\Ext\ConfigProvider::class,
+    \AcMailer\ConfigProvider::class,
+    \Laminas\Mail\ConfigProvider::class,
+    \General\ConfigProvider::class,
     \Women\ConfigProvider::class,
     \DoctrineModule\ConfigProvider::class,
     \Laminas\Cache\ConfigProvider::class,

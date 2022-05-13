@@ -105,7 +105,7 @@ class AuthenticationAdapter implements UserRepositoryInterface{
         }
         $users = $this->em->createQueryBuilder()
             ->select(["s", 'r', "st", "at"])->from(User::class, "s")
-            ->leftJoin("s.roles", "r")
+            ->leftJoin("s.role", "r")
             ->leftJoin("s.status", "st")
             ->leftJoin("s.authType", "at")
             ->where("s.username = :username")
@@ -131,6 +131,9 @@ class AuthenticationAdapter implements UserRepositoryInterface{
         // check if user has confirmed password
         if(! $user->getEmailConfirmed()){
             throw new Exception("You need to confirm your email ");
+        }
+        if($user->getIsActive() == false){
+            // throw new 
         }
         
         if (UserService::verifyHashedPassword($password, $user->getPassword()))

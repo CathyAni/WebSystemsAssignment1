@@ -32,6 +32,8 @@ class UserRedirectMiddleware implements MiddlewareInterface
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if($session->has(UserInterface::class)){
             $sessionData = $session->get(UserInterface::class);
+            // var_dump($sessionData);
+            // exit();
             $request  = $request->withAttribute(
                 UserInterface::class,
                 $user = ($this->user)($sessionData['username'] ?? '', $sessionData['roles'] ?? ['guest'])

@@ -19,19 +19,19 @@ class Role implements RoleInterface
      *      @ORM\Id
      *      @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private int $id;
+    private $id;
 
     /**
      * @var string
      * @ORM\Column(nullable=false, length="50")
      */
-    private string $role;
+    private $role;
 
     /**
      * @var Role
      * @ORM\ManyToOne(targetEntity="Role")
      */
-    private Role $parentRole;
+    private $parentRole;
 
     /**
      * Get the value of role
@@ -101,12 +101,12 @@ class Role implements RoleInterface
         
     }
 
-    public function addChild(RoleInterface $child): void
+    public function addChild( $child): void
     {
         
     }
 
-    public function addParent(RoleInterface $parent): void
+    public function addParent( $parent): void
     {
         
     }

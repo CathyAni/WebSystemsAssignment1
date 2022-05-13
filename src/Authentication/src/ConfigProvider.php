@@ -8,8 +8,22 @@ use Authentication\Adapter\AuthenticationAdapter;
 use Authentication\Adapter\AuthenticationAdapterFactory;
 use Authentication\Form\Fieldset\UserFieldset;
 use Authentication\Form\Fieldset\UserFieldsetFactory;
+use Authentication\Handler\ConfirmEmailHandler;
+use Authentication\Handler\ConfirmEmailHandlerFactory;
+use Authentication\Handler\CreateUserApiHandler;
+use Authentication\Handler\CreateUserApiHandlerFactory;
+use Authentication\Handler\CreateUserHandler;
+use Authentication\Handler\CreateUserHandlerFactory;
+use Authentication\Handler\ForgotPasswordHandler;
+use Authentication\Handler\ForgotPasswordHandlerFactory;
+use Authentication\Handler\LoginApiHandler;
+use Authentication\Handler\LoginApiHandlerFactory;
 use Authentication\Handler\LoginHandler;
 use Authentication\Handler\LoginHandlerFactory;
+use Authentication\Handler\LogoutHandler;
+use Authentication\Handler\LogoutHandlerFactory;
+use Authentication\Handler\RecoverPasswordHandler;
+use Authentication\Handler\RecoverPasswordHandlerFactory;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Authentication\Middleware\AuthenticationMiddlewareFactory;
 use Authentication\Middleware\UserRedirectMiddleware;
@@ -63,13 +77,23 @@ class ConfigProvider
                 AuthenticationMiddleware::class=>AuthenticationMiddlewareFactory::class,
                 AuthenticationAdapter::class=>AuthenticationAdapterFactory::class,
 
-                UserRedirectMiddleware::class=>UserRedirectMiddlewareFactory::class,
+                // UserRedirectMiddleware::class=>UserRedirectMiddlewareFactory::class,
 
                 //Services
                 UserService::class=>UserServiceFactory::class,
 
                 //handlers 
                 LoginHandler::class=>LoginHandlerFactory::class,
+                ForgotPasswordHandler::class =>ForgotPasswordHandlerFactory::class,
+                RecoverPasswordHandler::class=>RecoverPasswordHandlerFactory::class,
+                LogoutHandler::class=>LogoutHandlerFactory::class,
+                CreateUserHandler::class=>CreateUserHandlerFactory::class,
+                ConfirmEmailHandler::class=>ConfirmEmailHandlerFactory::class,
+
+                //API
+                LoginApiHandler::class=>LoginApiHandlerFactory::class,
+               CreateUserApiHandler::class=>CreateUserApiHandlerFactory::class,
+
             ],
            
 

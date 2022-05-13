@@ -6,6 +6,7 @@ namespace Authentication\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mezzio\Authentication\UserInterface;
 
@@ -47,7 +48,7 @@ class User implements UserInterface
      * @ORM\Column(nullable=false)
      * @var string
      */
-    private  $password ;
+    private  $password;
 
     /**
      * @var bool
@@ -75,21 +76,35 @@ class User implements UserInterface
     private  $activationCode;
 
 
-    // /**
-    //  * @var Role
-    //  * @ORM\ManyToOne(targetEntity="Role")
-    //  */
-    // private Role $role;
-
     /**
+     * @var Collection
+     * 
      * @ORM\ManyToMany(targetEntity="Role")
      * @ORM\JoinTable(
      *     name="user_roles",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
-     * @var ArrayCollection $roles
+     * 
+     * 
      */
+    private $role;
+
+    //   /**
+    //  *
+    //  * @var \Doctrine\Common\Collections\Collection @ORM\ManyToMany(targetEntity="GeneralServicer\Entity\Document")
+    //  *      @ORM\JoinTable(name="object_doc",
+    //  *      joinColumns={
+    //  *      @ORM\JoinColumn(name="object_id", referencedColumnName="id")
+    //  *      },
+    //  *      inverseJoinColumns={
+    //  *      @ORM\JoinColumn(name="doc_id", referencedColumnName="id")
+    //  *      }
+    //  *      )
+    //  */
+    // private $document;
+
+
     protected $roles = [];
 
     /**
@@ -124,10 +139,11 @@ class User implements UserInterface
 
 
 
-    public function __contruct()
+    public function __construct()
     {
-        $this->roles = new ArrayCollection();
+        $this->role = new ArrayCollection();
     }
+
 
 
     /**
@@ -355,7 +371,10 @@ class User implements UserInterface
 
     public function getDetails(): array
     {
-        return [];
+        return [
+            "id"=>$this->id,
+            "uuid"=>$this->uid,
+        ];
     }
 
     public function getDetail(string $name, $default = null)
@@ -480,35 +499,37 @@ class User implements UserInterface
     /**
      * Get $roles
      *
-     * @return  ArrayCollection
+     * @return  
      */
-    public function getRoles(): iterable
+    public function getRoles(): Collection
     {
-        return $this->roles;
+        return $this->role;
     }
 
-    /**
-     * Set $roles
-     *
-     * @param  ArrayCollection  $roles  $roles
-     *
-     * @return  self
-     */
-    public function setRoles(ArrayCollection $roles)
-    {
-        $this->roles = $roles;
+    // /**
+    //  * Set $roles
+    //  *
+    //  * @param  ArrayCollection  $roles  $roles
+    //  *
+    //  * @return  self
+    //  */
+    // public function setRoles(ArrayCollection $roles)
+    // {
+    //     $this->roles = $roles;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @param Role $role
      * 
      */
-    public function addRole(Role $role)
+    public function addRole($role)
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles->add($role);
+
+        $this->role = new ArrayCollection();
+        if (!$this->role->contains($role)) {
+            $this->role->add($role);
         }
         return $this;
     }
@@ -516,8 +537,8 @@ class User implements UserInterface
 
     public function removeRole(Role $role)
     {
-        if ($this->roles->contains($role)) {
-            $this->roles->removeElement($role);
+        if ($this->role->contains($role)) {
+            $this->role->removeElement($role);
         }
         return $this;
     }
@@ -545,4 +566,6 @@ class User implements UserInterface
 
         return $this;
     }
+
+    
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Authentication\Service;
 
 use Doctrine\ORM\EntityManager;
+use Exception;
 use General\Service\GeneralService;
 use General\Service\MailService;
 use Mezzio\Helper\UrlHelper;
@@ -17,6 +18,9 @@ class UserServiceFactory
     {
         $xserv = new UserService();
         $em = $container->get(EntityManager::class);
+        if (!$container->has(MailService::class)) {
+            throw new Exception("Mailer Service Absent");
+        }
         $mailService = $container->get(MailService::class);
         $urlHelper = $container->get(UrlHelper::class);
         $generalService = $container->get(GeneralService::class);

@@ -15,7 +15,9 @@ class AuthenticationInterface implements Auth {
     public function authenticate(ServerRequestInterface $request): ?UserInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+        
         $hasSessionData = $session->has(UserInterface::class);
+        // var_dump($hasSessionData);
         if($hasSessionData){
             return unserialize($session->get(UserInterface::class));
         }

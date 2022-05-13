@@ -1,0 +1,85 @@
+<?php
+echo $this->headtitle("All Training");
+
+?>
+
+<div id="slim-mainpanel">
+
+	
+
+	<div class="row">
+
+		<div class="col-xs-12 text-center">
+			<h1>All Training</h1>
+			<br />
+		</div>
+
+
+
+		<?php if (count($trainings) > 0) : ?>
+
+			<?php foreach ($trainings as $training) : ?>
+				<div class="col-lg-3 col-md-4 col-xs-6">
+					<div class="card">
+						<figure class="card-item-img bg-mantle">
+							<img width="200" src="<?php echo $training["image"]['thumbnail']  ?>" alt="Image">
+						</figure>
+						<div class="card-body">
+							<p class="blog-category"><?php echo strtoupper($training["trainingUid"]) ?></p>
+							<h5 class="blog-title">
+								<a href="<?php echo $this->url("training.view", array("id" => $training["trainingUid"])) ?>"><?php echo ($training["trainingTopic"]) ?></a>
+							</h5>
+							<p class="blog-text"><?php echo ($training["trainingDescription"] != NULL ? substr($this->escapehtml($training["trainingDescription"]), 0, 100) . "..." : "") ?></p>
+							<p class="blog-links">
+								<a href="<?php echo $this->url("training.view", array("id" => $training["trainingUid"])) ?>" class="btn btn-indigo btn-block">View</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			<?php endforeach; ?>
+
+
+		<?php endif; ?>
+		
+	</div>
+
+
+	<div class="container">
+		<div class="slim-pageheader">
+
+			<h6 class="slim-pagetitle">All Training</h6>
+		</div>
+
+		<!-- <button @click="toggleShowForm()">
+			<div v-if="isShowCreateForm">Hide Form</div>
+			<div v-else>Show Form</div>
+		</button>
+		<div v-if="isShowCreateForm">
+			Form goeas here
+		</div> -->
+		<!-- slim-pageheader -->
+
+
+
+	</div>
+	<!-- container -->
+</div>
+<!-- slim-mainpanel -->
+
+
+<script>
+	let vieww = new Vue({
+		el: "#slim-mainpanel",
+		data() {
+			return {
+				isShowCreateForm: false,
+
+			}
+		},
+		methods: {
+			toggleShowForm() {
+				this.isShowCreateForm = !this.isShowCreateForm;
+			}
+		},
+	});
+</script>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Helper\Flash;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
@@ -28,6 +29,11 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
             "doctrine" => $this->getDoctrineEntities(),
+            "view_helpers"=>[
+                "invokables"=>[
+                    "flash"=>Flash::class
+                ]
+            ]
 
         ];
     }

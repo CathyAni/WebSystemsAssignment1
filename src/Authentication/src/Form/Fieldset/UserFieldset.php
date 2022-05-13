@@ -118,22 +118,22 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
         ]);
 
 
-        // $this->add(array(
-        //     'name' => 'usernameOrEmail',
-        //     'type' => 'text',
-        //     'options' => array(
-        //         'label' => 'Username',
-        //         'label_attributes' => array(
-        //             'class' => ''
-        //         )
-        //     ),
-        //     'attributes' => array(
-        //         'class' => 'form-control col-md-9 col-xs-12',
-        //         'id' => 'username',
-        //         'required' => 'required',
-        //         'title' => 'Provide Staffs phone number'
-        //     )
-        // ));
+        $this->add(array(
+            'name' => 'usernameOrEmail',
+            'type' => 'text',
+            'options' => array(
+                'label' => 'Username',
+                'label_attributes' => array(
+                    'class' => ''
+                )
+            ),
+            'attributes' => array(
+                'class' => 'form-control col-md-9 col-xs-12',
+                'id' => 'username',
+                'required' => 'required',
+                'title' => 'Provide Staffs phone number'
+            )
+        ));
     }
 
     public function getInputFilterSpecification()

@@ -27,6 +27,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
     {
         // $response = $handler->handle($request);
         $user = $this->auth->authenticate($request);
+       
         if(null !== $user){
             return $handler->handle($request->withAttribute(UserInterface::class, $user));
         }
